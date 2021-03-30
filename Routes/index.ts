@@ -1,6 +1,10 @@
 import express = require('express');
 const router = express.Router();
 
+import mongoose = require('mongoose');
+
+const Contact = require('../Models/contact').Model;
+
 /* GET home page - with / */
 router.get('/', function(req, res, next) 
 {
@@ -60,7 +64,17 @@ router.get('/register', function(req, res, next)
 /* GET register page - with /register */
 router.get('/contact-list', function(req, res, next) 
 {
-    res.render('index', { title: 'Contact List', page: 'contact-list', displayName: 'temp'  });
+    //res.render('index', { title: 'Contact List', page: 'contact-list', displayName: 'temp'  });
+
+    Contact.find({}, (err:Error, contacts:string) => { 
+      if (err) {
+          return next(err);
+       } else { 
+         res.status(200).json(contacts);
+       }
+    });
+ 
+
 });
 
 /* GET login page - with /login */

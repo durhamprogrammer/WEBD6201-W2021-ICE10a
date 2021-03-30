@@ -5,6 +5,17 @@ import path = require('path');
 import cookieParser = require('cookie-parser');
 import logger = require('morgan');
 
+// import module for db connection
+import mongoose = require('mongoose');
+const config = require('./Config/db');
+
+mongoose.connect(config.DB, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log(`Connected to MongoDB at: ${config.DB}`);
+});
+
 // configuration
 const indexRouter = require('./Routes/index');
 const app = express();
