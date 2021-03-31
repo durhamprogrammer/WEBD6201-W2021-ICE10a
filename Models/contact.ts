@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ContactSchema = new Schema
 ({
-    FirstName: String,
+    FullName: String,
     EmailAddress: String,
     ContactNumber: String
 },

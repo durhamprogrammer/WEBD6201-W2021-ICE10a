@@ -7,7 +7,7 @@ exports.Model = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const ContactSchema = new Schema({
-    FirstName: String,
+    FullName: String,
     EmailAddress: String,
     ContactNumber: String
 }, {

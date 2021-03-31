@@ -1,64 +1,7 @@
 
 namespace core
 {
-
-        /**
-     * This function highlights the active link in the nav bar
-     *
-     * @param {string} link
-     * @param {string} [data=""]
-     */
-    /* function highlightActiveLink(link:string):void
-    {
-      // swap active link
-      $(`#${router.ActiveLink}`).removeClass("active"); // removes highlighted link
-            
-      if(link == "logout")
-      {
-        sessionStorage.clear();
-        router.ActiveLink = "login";
-      }
-      else
-      {
-        router.ActiveLink = link;
-      }
-      $(`#${router.ActiveLink}`).addClass("active"); // applies highlighted link to new page
-    } */
-
-    /**
-     * This function switches page content relative to the link that is passed into the function
-     * optionally, link data can be also be passed 
-     *
-     * @param {string} link
-     * @param {string} [data=""]
-     */
-    /* function loadLink(link:string, data:string = ""):void
-    {
-      //highlightActiveLink(link);
-      router.LinkData = data;
-      loadContent(router.ActiveLink, ActiveLinkCallBack(router.ActiveLink));
-      history.pushState({},"", router.ActiveLink); // this replaces the url displayed in the browser
-    } */
-
-    /**
-     * Inject the Navigation bar into the Header element and highlight the active link based on the pageName parameter
-     *
-     * @param {string} pageName
-     */
-    /* function loadHeader(pageName:string):void
-    {
-      // inject the Header
-      $.get("./components/header.html", function(data)
-      {
-        $("header").html(data); // load the navigation bar
-        
-        $(`#${pageName}`).addClass("active"); // highlight active link
-
-        //addLinkEvents();
-        
-      });
-    } */
-
+  
     
     function testFullName(): void
     {
@@ -157,9 +100,18 @@ namespace core
     function displayContactList() :void
     {
       // don't allow visitors to go here
+
       authGuard();
 
-      if (localStorage.length > 0) 
+      $("a.delete").on("click", function(event){
+        if(!confirm("Are you sure?"))
+        {
+          event.preventDefault();
+          location.href = '/contact-list';
+        }
+      });
+
+      /* if (localStorage.length > 0) 
       {
 
         let contactList = document.getElementById("contactList");
@@ -211,68 +163,14 @@ namespace core
       {
       //loadLink("edit");
       location.href = '/edit';
-      });
+      }); */
     }
 
-    /* function displayEdit(): void
+    function displayEdit(): void
     {
-      //let key = router.LinkData;
-
-      let contact = new core.Contact();
-
-      // check to ensure that the key is not empty
-      if(key != undefined && key != "")
-      {
-        // get contact info from localStorage
-        contact.deserialize(localStorage.getItem(key));
-
-        // display contact information in the form
-        $("#fullName").val(contact.FullName);
-        $("#contactNumber").val(contact.ContactNumber);
-        $("#emailAddress").val(contact.EmailAddress);
-      }
-      else
-      {
-        // modify the page so that it shows "Add Contact" in the header 
-        $("main>div>h1").text("Add Contact");
-        // modify edit button so that it shows "Add" as well as the appropriate icon
-        $("#editButton").html(`<i class="fas fa-plus-circle fa-lg"></i> Add`);
-      }
-
       // form validation
       formValidation();
-      
-     $("#editButton").on("click", function() 
-        {
-            // check to see if key is empty
-          if(key == "")
-          {
-            // create a new key
-            key = contact.FullName.substring(0, 1) + Date.now();
-          }
-
-          // copy contact info from form to contact object
-          contact.FullName = $("#fullName").val().toString();
-          contact.ContactNumber = $("#contactNumber").val().toString();
-          contact.EmailAddress = $("#emailAddress").val().toString();
-
-          if(contact.serialize())
-          {
-            // add the contact info to localStorage
-            localStorage.setItem(key, contact.serialize());
-          }
-
-          // return to the contact list
-          //loadLink("contact-list");
-          
-        });
-
-      $("#cancelButton").on("click", function()
-      {
-        // return to the contact list
-        //loadLink("contact-list");
-      });
-    } */
+    } 
 
     function displayLogin():void
     {
@@ -396,54 +294,19 @@ namespace core
 
     }
 
-    /**
-     * This function associates and returns a related callback to a route
-     *
-     * @param {string} activeLink
-     * @returns {Function}
-     */
-    /* function ActiveLinkCallBack(activeLink:string): Function
-    {
-      switch (activeLink) 
-      {
-        case "home": return displayHome;
-        case "about": return displayAbout;
-        case "projects": return displayProjects;
-        case "services": return displayServices;
-        case "contact": return displayContact;
-        case "contact-list": return displayContactList;
-        case "edit": return displayEdit;
-        case "login": return displayLogin;
-        case "register": return displayRegister;
-        case "404": return display404;
-        default:
-          console.error("ERROR: callback does not exist: " + activeLink);
-          break;
-      }
-    } */
-
-    /**
+      /**
      * This is the entry point for our program
      *
      */
     function Start(): void
     {
-        //loadHeader(router.ActiveLink);
-      
-        //loadContent(router.ActiveLink, ActiveLinkCallBack(router.ActiveLink));
-
-        //loadFooter();
 
         let pageID = $("body")[0].getAttribute("id");
         
-      switch (pageID) {
-        case 'home':
-          break;
-        case 'about':
-          break;
-        case 'services':
-          break;
-        case 'projects':
+      switch (pageID) 
+      {
+        case 'edit':
+          displayEdit();
           break;
         case 'contact':
           displayContact();
