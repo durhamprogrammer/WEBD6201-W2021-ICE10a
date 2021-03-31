@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const app = require('./app');
+const appConfig = require("./app");
 let debug = require('debug')('week10a:server');
 let http = require('http');
 let port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-let server = http.createServer(app);
+appConfig.app.set('port', port);
+let server = http.createServer(appConfig.app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

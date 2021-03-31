@@ -1,9 +1,9 @@
-import express = require('express');
-const router = express.Router();
+import express from 'express';
+export const router = express.Router();
 
-import mongoose = require('mongoose');
-
-const Contact = require('../Models/contact').Model;
+import mongoose from 'mongoose';
+import ContactModel = require('../Models/contact');
+const Contact = ContactModel.Model;
 
 /* GET home page - with / */
 router.get('/', function(req, res, next) 
@@ -66,7 +66,7 @@ router.get('/contact-list', function(req, res, next)
 {
     //res.render('index', { title: 'Contact List', page: 'contact-list', displayName: 'temp'  });
 
-    Contact.find({}, (err:Error, contacts:string) => { 
+    Contact.find({}, (err, contacts) => { 
       if (err) {
           return next(err);
        } else { 
@@ -83,6 +83,3 @@ router.get('/logout', function(req, res, next)
   res.render('index', { title: 'Logout', page: 'logout', displayName: ''    });
 });
 
-
-
-module.exports = router;

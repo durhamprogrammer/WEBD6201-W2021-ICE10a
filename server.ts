@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 import createError = require('http-errors');
-const app = require('./app');
+import appConfig = require('./app');
 let debug = require('debug')('week10a:server');
 let http = require('http');
 
@@ -13,13 +13,13 @@ let http = require('http');
  */
 
 let port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+appConfig.app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-let server = http.createServer(app);
+let server = http.createServer(appConfig.app);
 
 /**
  * Listen on provided port, on all network interfaces.
